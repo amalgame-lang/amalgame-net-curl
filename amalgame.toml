@@ -1,0 +1,44 @@
+# amalgame-net-curl — thin libcurl binding for Amalgame.
+#
+# Brings back the convenient `Http.Get`/`Http.Post`/etc. API that
+# lived in amc's bundled stdlib through v0.8.30. Extracted as a
+# separate package in v0.8.31 so amc itself has zero dependency
+# on libcurl.
+#
+# Use this when you want libcurl's redirect handling, cookie jar,
+# HTTPS-out-of-the-box, etc. — i.e. a battle-tested HTTP client
+# rather than the pure-AM parser shipped by amalgame-net-http.
+#
+# Install:
+#   amc package add net-curl
+#
+# System prerequisites:
+#   Debian/Ubuntu : sudo apt install libcurl4-openssl-dev
+#   macOS         : brew install curl
+#   Fedora/RHEL   : sudo dnf install libcurl-devel
+#   Windows/MSYS2 : pacman -S mingw-w64-x86_64-curl
+
+[package]
+name              = "amalgame-net-curl"
+version           = "0.1.0"
+license           = "Apache-2.0"
+description       = "Thin libcurl binding — Http.Get/Post/Put/Delete/Patch with redirect handling, cookies, HTTPS."
+required-amalgame = ">=0.8.31"
+schema-version    = 1
+
+[stdlib]
+classes   = ["Http", "HttpResponse"]
+header    = "runtime/Amalgame_Net_Curl.h"
+namespace = "Amalgame.Net.Curl"
+libs      = ["curl"]
+
+[stdlib.functions]
+Http_Get              = { returns = "AmalgameHttpResponse*" }
+Http_GetTimeout       = { returns = "AmalgameHttpResponse*" }
+Http_GetWithHeaders   = { returns = "AmalgameHttpResponse*" }
+Http_Post             = { returns = "AmalgameHttpResponse*" }
+Http_PostJson         = { returns = "AmalgameHttpResponse*" }
+Http_PostWithHeaders  = { returns = "AmalgameHttpResponse*" }
+Http_Put              = { returns = "AmalgameHttpResponse*" }
+Http_Delete           = { returns = "AmalgameHttpResponse*" }
+Http_Patch            = { returns = "AmalgameHttpResponse*" }
